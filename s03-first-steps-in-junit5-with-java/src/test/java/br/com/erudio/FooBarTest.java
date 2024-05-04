@@ -8,6 +8,6 @@ class FooBarTest {
 
     @Test
     void test() {
-        System.out.println("Hello JUnit 5");
+        fail("Hello JUnit 5");
     }
 }
