@@ -1,5 +1,7 @@
 package br.com.erudio.math;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.AfterAll;
@@ -60,9 +62,22 @@ public class SimpleMathTest {
         Assertions.assertNotEquals(9.2, actual);
     }
 
-    @Disabled("TODO: we need work on it!")
+    // test[System Under Test]_[Condition os State Change]_[Expected Result]
+    @DisplayName("Test Division by Zero")
     @Test
-    void testDivision_When_FirstNumberIsDividedByZero_ShouldThrowArithmeticException() {
-        fail();
+    void TestABCD_When_XYZ_Should() {
+        // Given / Arrange
+        double firstNumber = 6.2D;
+        double secondNumber = 0D;
+
+        var expectedMessage = "Impossible to divide by zero!";
+
+        // When / Act
+        ArithmeticException actual = Assertions.assertThrows(ArithmeticException.class, () -> {
+            math.division(firstNumber, secondNumber);
+        }, () -> "Division by zero should throw an ArithmeticException");
+        // the lambda function is executed only when the error occurred
+
+        assertEquals(expectedMessage, actual.getMessage(), () -> "Unexpected exception message");
     }
 }
