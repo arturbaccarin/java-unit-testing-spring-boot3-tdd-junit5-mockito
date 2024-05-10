@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.RepetitionInfo;
+import org.junit.jupiter.api.TestInfo;
 
 public class DemoRepeatedTest {
     SimpleMath math;
@@ -15,10 +17,17 @@ public class DemoRepeatedTest {
         math = new SimpleMath();
     }
 
-    @RepeatedTest(3)
+    @RepeatedTest(value = 3, name = "{displayName}. Repetition "
+            + "{currentRepetition} of {totalRepetitions}!")
     @DisplayName("Test Division by Zero")
-    void testDivision_When_FirstNumberIsDividedByZero_ShouldThrowArithmeticExepction() {
+    void testDivision_When_FirstNumberIsDividedByZero_ShouldThrowArithmeticExepction(
+            RepetitionInfo repetitionInfo,
+            TestInfo testInfo) {
 
+        System.out.println("Repetition n: " + repetitionInfo.getCurrentRepetition() +
+                " of " + repetitionInfo.getTotalRepetitions());
+
+        System.out.println("Running " + testInfo.getTestMethod().get().getName());
         // given
         double firstNumber = 6.2D;
         double secondNumber = 0D;
