@@ -1,7 +1,9 @@
 package br.com.erudio.service;
 
+import br.com.erudio.model.Person;
+
 public interface IPersonService {
 
-    void createPerson();
+    Person createPerson(Person person);
 
 }
