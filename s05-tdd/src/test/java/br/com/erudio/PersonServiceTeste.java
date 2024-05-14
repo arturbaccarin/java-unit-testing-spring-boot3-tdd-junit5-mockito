@@ -13,9 +13,12 @@ import br.com.erudio.service.PersonService;;
 public class PersonServiceTeste {
 
     private Person person;
+    IPersonService service;
 
     @BeforeEach
     void setup() {
+        service = new PersonService();
+
         person = new Person(
                 "Bruce",
                 "Dickinson",
@@ -29,7 +32,6 @@ public class PersonServiceTeste {
     void testCreatePerson_WhenSuccess_ShoudlReturnPersonObject() {
 
         // Given / Arrange
-        IPersonService service = new PersonService();
 
         // When / Act
         Person actual = service.createPerson(person);
@@ -43,7 +45,6 @@ public class PersonServiceTeste {
     void testCreatePerson_WhenSuccess_ShouldContainsFirstNameInReturnedPersonObject() {
 
         // Given / Arrange
-        IPersonService service = new PersonService();
 
         // When / Act
         Person actual = service.createPerson(person);
@@ -56,5 +57,23 @@ public class PersonServiceTeste {
         assertEquals(person.getAddress(), actual.getAddress(), () -> "the Address is different!");
         assertEquals(person.getGender(), actual.getGender(), () -> "the Gender is different!");
         assertEquals(person.getEmail(), actual.getEmail(), () -> "the Email is different!");
+    }
+
+    @DisplayName("when create a person with null e-mail shoudl throw an exception")
+    @Test
+    void testCreatePerson_WithNullEmail_ShouldThrowIllegalArgumentException() {
+
+        person.setEmail(null);
+
+        var expectedMessage = "person email is null or empty";
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> service.createPerson(person),
+                () -> "empty email should have causa an IllegalArgumentException");
+
+        assertEquals(
+                expectedMessage,
+                exception.getMessage(),
+                () -> "exception error message is incorrect");
     }
 }
