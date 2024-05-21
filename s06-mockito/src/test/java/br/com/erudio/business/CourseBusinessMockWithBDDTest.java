@@ -112,7 +112,7 @@ public class CourseBusinessMockWithBDDTest {
 
         ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
 
-        String agileCourse = "Agile Desmistificado com Scrum, XP, Kanban e Trello";
+        // String agileCourse = "Agile Desmistificado com Scrum, XP, Kanban e Trello";
 
         // When / Act
         business.deleteCoursesNotRelatedToSpring("Leandro");
@@ -120,7 +120,7 @@ public class CourseBusinessMockWithBDDTest {
         // Then / Assert
         // then(mockService).should().deleteCourse(argumentCaptor.capture());
         // assertThat(argumentCaptor.getValue(), is(agileCourse));
-        then(mockService).should().deleteCourse(argumentCaptor.capture());
+        then(mockService).should(times(7)).deleteCourse(argumentCaptor.capture());
         assertThat(argumentCaptor.getAllValues().size(), is(7));
     }
 }
